@@ -19,6 +19,7 @@ jobs:
         php: [7.4]
         dependency-version: [prefer-stable]
         os: [ubuntu-latest]
+        phpuniturl: [https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/4.3/bin/phpunit]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -44,9 +45,9 @@ jobs:
           path: |
             bin/phpunit
             bin/.phpunit
-          key: ${{ runner.os }}-${{ matrix.php }}-phpunit
+          key: ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ matrix.phpuniturl }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.php }}-phpunit
+            ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ matrix.phpuniturl }}
 
       - name: Setup PHP
         if: success()
@@ -61,6 +62,7 @@ jobs:
         run: composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-suggest
 
       - name: Check file existence
+        if: success()
         id: check-files
         uses: andstor/file-existence-action@v1
         with:
@@ -72,7 +74,7 @@ jobs:
           mkdir -p bin
           cd bin
           rm -f phpunit
-          wget https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/4.3/bin/phpunit
+          wget ${{ matrix.phpuniturl }}
           cd ../
 
       - name: Setup and Run PHPUnit
