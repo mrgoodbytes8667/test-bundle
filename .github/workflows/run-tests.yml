@@ -40,9 +40,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
-          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-php${{ matrix.php }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-
+            ${{ runner.os }}-php${{ matrix.php }}-composer-
 
       - name: Cache PHPUnit
         uses: actions/cache@v2
@@ -50,9 +50,9 @@ jobs:
           path: |
             bin/phpunit
             bin/.phpunit
-          key: ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
+          key: ${{ runner.os }}-php${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
+            ${{ runner.os }}-php${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
 
       - name: Setup PHP
         if: success()
