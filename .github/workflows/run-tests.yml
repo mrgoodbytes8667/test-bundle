@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         php: [7.4]
-        dependency-version: [prefer-lowest, prefer-stable]
+        dependency-version: [prefer-stable]
         os: [ubuntu-latest]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
@@ -67,7 +67,7 @@ jobs:
           files: "bin/phpunit"
 
       - name: Get PHPUnit-Bridge Recipe
-        if: success() && steps.check_files.outputs.files_exists == 'true'
+        if: success() && steps.check_files.outputs.files_exists == 'false'
         run: |
           mkdir -p bin
           cd bin
