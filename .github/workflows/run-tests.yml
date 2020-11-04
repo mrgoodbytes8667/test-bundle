@@ -52,7 +52,7 @@ jobs:
             bin/.phpunit
           key: ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.php }}-phpunit-
+            ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
 
       - name: Setup PHP
         if: success()
