@@ -31,6 +31,11 @@ jobs:
         run: |
           echo "::set-output name=sha::$(${{ matrix.phpuniturl }} | sha256sum)"
 
+      - name: Print sha1
+        run: |
+          echo -n ${{ matrix.phpuniturl }} | openssl dgst -binary -sha1 | openssl base64
+          echo -n ${{ matrix.phpuniturl }} | openssl dgst -binary -sha1 | openssl base64 | sed -e 's/[^a-zA-Z0-9]/X/g'
+
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
