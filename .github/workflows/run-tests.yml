@@ -26,8 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Sha256 this
-        run: echo -n ${{ matrix.phpuniturl }} | sha256sum
+      - name: Sha256 PHPUnit Recipe
+        id: phpunit-sha256
+        run: |
+          echo "::set-output name=sha::$(${{ matrix.phpuniturl }} | sha256sum)"
 
       - name: Get Composer Cache Directory
         id: composer-cache
@@ -48,9 +50,9 @@ jobs:
           path: |
             bin/phpunit
             bin/.phpunit
-          key: ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ matrix.phpuniturl }}
+          key: ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ steps.phpunit-sha256.outputs.sha }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.php }}-phpunit-${{ matrix.phpuniturl }}
+            ${{ runner.os }}-${{ matrix.php }}-phpunit-
 
       - name: Setup PHP
         if: success()
