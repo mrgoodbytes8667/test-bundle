@@ -26,6 +26,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Sha256 this
+        run: sha256sum < ${{ matrix.phpuniturl }}
+
       - name: Get Composer Cache Directory
         id: composer-cache
         run: |
