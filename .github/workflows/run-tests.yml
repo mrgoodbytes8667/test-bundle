@@ -67,7 +67,7 @@ jobs:
           files: "bin/phpunit"
 
       - name: Get PHPUnit-Bridge Recipe
-        if: success() && steps.check_files.outputs.files_exists == 'false'
+        if: success() && steps.check-files.outputs.files_exists == 'false'
         run: |
           mkdir -p bin
           cd bin
