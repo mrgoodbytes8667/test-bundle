@@ -19,7 +19,7 @@ jobs:
         php: [7.4]
         dependency-version: [prefer-stable]
         os: [ubuntu-latest]
-        phpuniturl: [https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/4.3/bin/phpunit]
+        phpuniturl: ["https://raw.githubusercontent.com/symfony/recipes/master/symfony/phpunit-bridge/4.3/bin/phpunit"]
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
